@@ -1,0 +1,8 @@
+To add the repo:
+git clone https://github.com/kaiserroll14/301finalproject.git
+
+When you want to push:
+git add -A .
+git commit -m “write a descriptive commit message here”
+git pull
+git push
