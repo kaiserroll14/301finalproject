@@ -7,11 +7,13 @@
  * into a dataframe to be later manipulated in other functions
  */
 
-public void get_data()
+public string[][] get_data()
 {
-  String lines[] = loadStrings("list.txt");
+  String holder[];
+  String result[][];
+  String lines[] = loadStrings("http://52.38.78.108/data.php");
   for (int i = 0 ; i < lines.length; i++) {
-    println(lines[i]);
+    holder.append(lines[i].split(","));
   } 
 }
 
@@ -56,5 +58,5 @@ public void setup()
 
 public void draw()
 {
-  
+  data = get_data();
 }
