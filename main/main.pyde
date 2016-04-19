@@ -1,56 +1,31 @@
 # 301 Final Project
 # Cody Kaiser, Scott McGowan
 
-import requests, gzip, os.path
+import requests, gzip, os.path, types
+import pandas as pd
+import numpy as np
+from pandas import DataFrame, Series
+from bs4 import BeautifulSoup
 
 '''
 This function takes a file name requests it from the server to
 get a file. From there we dump line by line(all values will be on sepereate lines)
-into a list to be later manipulated in other functions
+into a dataframe to be later manipulated in other functions
 '''
 def get_data(fname):
-    with open(fname) as f:
-        content = f.readlines()
-    return content
+    with open(fname, 'r') as fp:
+        lst = json.load(fp)
+    col = ['Color', 'Shape', 'Size', 'pos']
+    arr = np.array(lst)
+    return df.DataFrame(arr, col)
 
-'''
-Sorts the jumbled up shit heap that the list we made in get_data into 
-the sperate data categories that we are looking for... 
-
-IE: Color, Size, Shape, Randomness, Lines, How Many
-'''
-def sort_list(lst):
-    colors = []
-    size = []
-
-    for i in lst:
-        if i == 'Red' or i == 'Blue':
-            colors.append(i)
-        elif i.isdigit():
-            size.append(i)
-
-
-'''
-Pulls the Colors from our sort_list and returns a string of the most 
-voted for color
-'''
-def get_color(lst):
+def get_user(df):
+    makeShape = []
+    data = df.values.tolist()
+    for i 
+    df.loc[[i]]
     
-    color = ????
-    return color
-
-
-'''
-Pulls the booleans for randomness and returns whether or not the majority
-of the class wants the elements to be given randomness to their position
-'''
-def get_Rando(lst):
-    return
-
-'''
-'''
-def get_shape(lst):
-    return
+    return makeShape
 
 '''
 ######################################################################################################################
@@ -70,6 +45,7 @@ def get_shape(lst):
 '''
 def setup():
     size(500, 500)
+
     return
 
 def draw():
