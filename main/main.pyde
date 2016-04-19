@@ -19,13 +19,42 @@ def get_data(fname):
     arr = np.array(lst)
     return df.DataFrame(arr, col)
 
-def get_user(df):
-    makeShape = []
-    data = df.values.tolist()
-    for i 
-    df.loc[[i]]
-    
-    return makeShape
+def draw_star(lst):
+    beginShape()
+    vertex(0, -50)
+    vertex(14, -20)
+    vertex(47, -15)
+    vertex(23, 7)
+    vertex(29, 40)
+    vertex(0, 25)
+    vertex(-29, 40)
+    vertex(-23, 7)
+    vertex(-47, -15)
+    vertex(-14, -20)
+    endShape(CLOSE)
+    return
+
+
+def draw_shape(lst):
+    noStroke()
+    if lst[1] == 1:
+        fill(255,0,0)
+    elif lst[1] == 2:
+        fill(0,255,0)
+    elif lst[1] == 3:
+        fill(0,0,255)
+    elif lst[1] == 4:
+        fill(0,0,0)
+    if lst[0] == 1:
+        rect(lst[4],lst[4],lst[3],lst[3])
+    elif lst[0] == 2:
+        ellipse(lst[4],lst[4],lst[3],lst[3])
+    elif lst[0] == 3:
+        triangle(lst[4],lst[4],lst[4]+lst[3],lst[4]+lst[3],lst[4]-lst[3],lst[4]-lst[3])
+    elif lst[0] == 4:
+        draw_star()
+    return
+
 
 '''
 ######################################################################################################################
@@ -44,10 +73,12 @@ def get_user(df):
 ######################################################################################################################                                                                                              
 '''
 def setup():
-    size(500, 500)
+    size(1000, 1000)
 
     return
 
 def draw():
-    
+    df = get_data(fname)
+    for i in range(len(df)):
+        draw_shape(df[i].values.tolist())
     return
