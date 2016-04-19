@@ -2,10 +2,6 @@
 # Cody Kaiser, Scott McGowan
 
 import requests, gzip, os.path, types
-import pandas as pd
-import numpy as np
-from pandas import DataFrame, Series
-from bs4 import BeautifulSoup
 
 '''
 This function takes a file name requests it from the server to
