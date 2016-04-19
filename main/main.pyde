@@ -1,56 +1,56 @@
 # 301 Final Project
 # Cody Kaiser, Scott McGowan
 
-import requests, gzip, os.path
+import requests, gzip, os.path, types
 
 '''
 This function takes a file name requests it from the server to
 get a file. From there we dump line by line(all values will be on sepereate lines)
-into a list to be later manipulated in other functions
+into a dataframe to be later manipulated in other functions
 '''
 def get_data(fname):
-    with open(fname) as f:
-        content = f.readlines()
-    return content
+    with open(fname, 'r') as fp:
+        lst = json.load(fp)
+    col = ['Color', 'Shape', 'Size', 'pos']
+    arr = np.array(lst)
+    return df.DataFrame(arr, col)
 
-'''
-Sorts the jumbled up shit heap that the list we made in get_data into 
-the sperate data categories that we are looking for... 
-
-IE: Color, Size, Shape, Randomness, Lines, How Many
-'''
-def sort_list(lst):
-    colors = []
-    size = []
-
-    for i in lst:
-        if i == 'Red' or i == 'Blue':
-            colors.append(i)
-        elif i.isdigit():
-            size.append(i)
-
-
-'''
-Pulls the Colors from our sort_list and returns a string of the most 
-voted for color
-'''
-def get_color(lst):
-    
-    color = ????
-    return color
-
-
-'''
-Pulls the booleans for randomness and returns whether or not the majority
-of the class wants the elements to be given randomness to their position
-'''
-def get_Rando(lst):
+def draw_star(lst):
+    beginShape()
+    vertex(0, -50)
+    vertex(14, -20)
+    vertex(47, -15)
+    vertex(23, 7)
+    vertex(29, 40)
+    vertex(0, 25)
+    vertex(-29, 40)
+    vertex(-23, 7)
+    vertex(-47, -15)
+    vertex(-14, -20)
+    endShape(CLOSE)
     return
 
-'''
-'''
-def get_shape(lst):
+
+def draw_shape(lst):
+    noStroke()
+    if lst[1] == 1:
+        fill(255,0,0)
+    elif lst[1] == 2:
+        fill(0,255,0)
+    elif lst[1] == 3:
+        fill(0,0,255)
+    elif lst[1] == 4:
+        fill(0,0,0)
+    if lst[0] == 1:
+        rect(lst[4],lst[4],lst[3],lst[3])
+    elif lst[0] == 2:
+        ellipse(lst[4],lst[4],lst[3],lst[3])
+    elif lst[0] == 3:
+        triangle(lst[4],lst[4],lst[4]+lst[3],lst[4]+lst[3],lst[4]-lst[3],lst[4]-lst[3])
+    elif lst[0] == 4:
+        draw_star()
     return
+
 
 '''
 ######################################################################################################################
@@ -69,9 +69,12 @@ def get_shape(lst):
 ######################################################################################################################                                                                                              
 '''
 def setup():
-    size(500, 500)
+    size(1000, 1000)
+
     return
 
 def draw():
-    
+    df = get_data(fname)
+    for i in range(len(df)):
+        draw_shape(df[i].values.tolist())
     return
