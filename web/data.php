@@ -1,35 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p>
 <?php
 
-$shape = "1";
-$color = "2";
-$size = "3";
-$pos = "4";
+$servername = "localhost";
+$username = "root";
+$password = "12345";
+$dbname = "db1";
 
-if($_POST['shape'] == "1") {
-  echo "ok";
-}
-if($_POST['color'] == "1") {
-  echo "ok";
-}
-if($_POST['size'] == "1") {
-  echo "ok";
-}
-if($_POST['pos'] == "1") {
-  echo "ok";
-}
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $conn->prepare("SELECT * FROM shapes"); 
+    $stmt->execute();
 
-?>
+    // set the resulting array to associative
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
 
-<html>
- <head>
-  <title>PHP Test</title>
- </head>
- <body>
- <?php
- print $shape;
- print $color;
- print $size;
- print $pos;
- ?> 
- </body>
+    foreach($stmt->fetchAll() as $row) {
+        echo $row['shape'].$row['color'].$row['size'].$row['pos']."<br>";
+    }
+}
+catch(PDOException $e) {
+     echo "Error: " . $e->getMessage();
+}
+$conn = null;
+?>  
+</p>
+</body>
 </html>
