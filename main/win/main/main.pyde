@@ -1,24 +1,27 @@
 # 301 Final Project
 # Cody Kaiser, Scott McGowan
 
-# import requests
-# import pandas
-# import numpy
-from requests import *
-from pandas import *
-from numpy import*
+import requests
 
-'''
-This function takes a file name requests it from the server to
-get a file. From there we dump line by line(all values will be on sepereate lines)
-into a dataframe to be later manipulated in other functions
-'''
-def get_data(fname):
-    with open(fname, 'r') as fp:
-        lst = json.load(fp)
-    col = ['Color', 'Shape', 'Size', 'pos']
-    arr = np.array(lst)
-    return df.DataFrame(arr, col)
+s = 50
+m = 150
+l = 250
+xl = 350
+
+def get_data():
+    r = requests.get('http://52.38.78.108/data.php')
+    data = r.content
+    lst = []
+    cpy = False
+    for line in data.split():
+        if line.strip() == '<p>':
+            cpy = True
+        elif line.strip() == '</p>':
+            cpy = False
+        elif cpy:
+            lst.append(line[:4])
+       
+    return lst
 
 def draw_star(lst):
     beginShape()
@@ -35,9 +38,16 @@ def draw_star(lst):
     endShape(CLOSE)
     return
 
+def get_size(lst):
+    
+    return
+
+def get_POS(lst):
+    return
 
 def draw_shape(lst):
     noStroke()
+    print lst
     if lst[1] == 1:
         fill(255,0,0)
     elif lst[1] == 2:
@@ -47,11 +57,11 @@ def draw_shape(lst):
     elif lst[1] == 4:
         fill(0,0,0)
     if lst[0] == 1:
-        rect(lst[4],lst[4],lst[3],lst[3])
+        rect(lst[3],lst[3],lst[2],lst[2])
     elif lst[0] == 2:
-        ellipse(lst[4],lst[4],lst[3],lst[3])
+        ellipse(lst[3],lst[3],lst[2],lst[2])
     elif lst[0] == 3:
-        triangle(lst[4],lst[4],lst[4]+lst[3],lst[4]+lst[3],lst[4]-lst[3],lst[4]-lst[3])
+        triangle(lst[3],lst[3],lst[3]+lst[2],lst[3]+lst[2],lst[3]-lst[2],lst[3]-lst[2])
     elif lst[0] == 4:
         draw_star()
     return
@@ -74,12 +84,13 @@ def draw_shape(lst):
 ######################################################################################################################                                                                                              
 '''
 def setup():
+    fill(126)
     size(1000, 1000)
 
     return
 
 def draw():
-    df = get_data(fname)
-    for i in range(len(df)):
-        draw_shape(df[i].values.tolist())
+    lst2 = get_data()
+    for i in range(len(lst2)):
+        draw_shape([int(j) for j in lst2[i]])
     return
