@@ -1,7 +1,12 @@
 # 301 Final Project
 # Cody Kaiser, Scott McGowan
 
-import requests, gzip, os.path, types
+# import requests
+# import pandas
+# import numpy
+from requests import *
+from pandas import *
+from numpy import*
 
 '''
 This function takes a file name requests it from the server to
