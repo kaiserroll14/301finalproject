@@ -3,10 +3,10 @@
 
 import requests
 
-s = 50
-m = 150
-l = 250
-xl = 350
+s = 50.0
+m = 150.0
+l = 250.0
+xl = 350.0
 
 def get_data():
     r = requests.get('http://52.38.78.108/data.php')
@@ -39,15 +39,38 @@ def draw_star(lst):
     return
 
 def get_size(lst):
-    
-    return
+    siz = 0.0
+    if lst[0] == 1:
+        siz = s
+    elif lst[0] == 2:
+        siz = m
+    elif lst[0] == 3:
+        siz = l
+    elif lst[0] == 4:
+        siz = xl
+    return siz
 
 def get_POS(lst):
-    return
+    x=0.0
+    y=0.0
+    if lst[0] == 1:
+        x = random(1000)
+        y = random(1000) 
+    elif lst[0] == 2:
+        x = random(1000)
+        y = randrange(0,333.3)
+    elif lst[0] == 3:
+        x = random(1000)
+        y = randrange(333.4, 666.6)
+    elif lst[0] == 4:
+        x = random(1000)
+        y = randrange(666.7,1000)
+    return (x,y)
 
 def draw_shape(lst):
     noStroke()
-    print lst
+    pos = get_POS(lst[3])
+    siz = get_size(lst[2])
     if lst[1] == 1:
         fill(255,0,0)
     elif lst[1] == 2:
@@ -57,11 +80,11 @@ def draw_shape(lst):
     elif lst[1] == 4:
         fill(0,0,0)
     if lst[0] == 1:
-        rect(lst[3],lst[3],lst[2],lst[2])
+        rect(pos[0],pos[1],siz,siz)
     elif lst[0] == 2:
-        ellipse(lst[3],lst[3],lst[2],lst[2])
+        ellipse(pos[0],pos[1],siz,siz)
     elif lst[0] == 3:
-        triangle(lst[3],lst[3],lst[3]+lst[2],lst[3]+lst[2],lst[3]-lst[2],lst[3]-lst[2])
+        triangle(pos[0],pos[1],pos[0]+siz,pos[1]+siz,pos[0]-siz,pos[1]-siz)
     elif lst[0] == 4:
         draw_star()
     return
