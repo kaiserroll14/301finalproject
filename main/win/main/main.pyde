@@ -2,6 +2,7 @@
 # Cody Kaiser, Scott McGowan
 
 import requests
+import random
 
 s = 50.0
 m = 150.0
@@ -23,7 +24,7 @@ def get_data():
        
     return lst
 
-def draw_star(lst):
+def draw_star():
     beginShape()
     vertex(0, -50)
     vertex(14, -20)
@@ -38,33 +39,34 @@ def draw_star(lst):
     endShape(CLOSE)
     return
 
-def get_size(lst):
+def get_size(num):
     siz = 0.0
-    if lst[0] == 1:
+    if num == 1:
         siz = s
-    elif lst[0] == 2:
+    elif num == 2:
         siz = m
-    elif lst[0] == 3:
+    elif num == 3:
         siz = l
-    elif lst[0] == 4:
+    elif num == 4:
         siz = xl
     return siz
 
-def get_POS(lst):
+def get_POS(num):
     x=0.0
     y=0.0
-    if lst[0] == 1:
-        x = random(1000)
-        y = random(1000) 
-    elif lst[0] == 2:
-        x = random(1000)
-        y = randrange(0,333.3)
-    elif lst[0] == 3:
-        x = random(1000)
-        y = randrange(333.4, 666.6)
-    elif lst[0] == 4:
-        x = random(1000)
-        y = randrange(666.7,1000)
+
+    if num == 1:
+        x = round(random.random()*1000, 2)
+        y = round(random.random()*1000, 2) 
+    elif num == 2:
+        x = round(random.random()*1000, 2)
+        y = float(random.randrange(0,333))
+    elif num == 3:
+        x = round(random.random()*1000, 2)
+        y = float(random.randrange(334, 666))
+    elif num == 4:
+        x = round(random.random()*1000, 2)
+        y = float(random.randrange(667,1000))
     return (x,y)
 
 def draw_shape(lst):
