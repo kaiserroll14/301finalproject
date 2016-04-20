@@ -1,20 +1,46 @@
 //Final Sktech project
 //Cody Kaiser and Scott McGowan
 
+import java.util.*;
+
+ArrayList shapes;
 /*
  * This function takes a file name requests it from the server to
  * get a file. From there we dump line by line(all values will be on sepereate lines) 
  * into a dataframe to be later manipulated in other functions
  */
 
-public string[][] get_data()
+public boolean get_data()
 {
-  String holder[];
-  String result[][];
   String lines[] = loadStrings("http://52.38.78.108/data.php");
   for (int i = 0 ; i < lines.length; i++) {
-    holder.append(lines[i].split(","));
-  } 
+    shapes.add(lines[i].split(","));
+  }
+  return true;
+}
+
+public void init_Data()
+{
+  shapes = new ArrayList();
+}
+public int getShape()
+{
+  int obj = shape[0] 
+}
+
+public int getcolor(String[] lines)
+{
+  colorval = 
+}
+
+public int getSize()
+{
+  
+}
+
+public int getPos()
+{
+  
 }
 
 void star(float x, float y, float radius1, float radius2, int npoints) {
@@ -59,4 +85,5 @@ public void setup()
 public void draw()
 {
   data = get_data();
+  for
 }
