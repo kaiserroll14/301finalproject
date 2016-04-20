@@ -15,7 +15,7 @@ $(function(){
         }
 
         $.ajax({
-            url:'data.php',
+            url:'process.php',
             type:'POST',
             data:s,
             success:function(data){

@@ -1,6 +1,52 @@
 <?php
-phpinfo();
-// include_once("pdo_mysql.php");
+$shape = 1;
+$color = 1;
+$size = 1;
+$pos = 1;
+
+// Get values
+if (isset($_POST['shape'])) {
+    $shape = $_POST['shape'];
+} else {
+    $shape = 2;
+}
+if (isset($_POST['color'])) {
+    $color = $_POST['color'];
+} else {
+    $color = 2;
+}
+if (isset($_POST['size'])) {
+    $size = $_POST['size'];
+} else {
+    $size = 2;
+}
+if (isset($_POST['pos'])) {
+    $pos = $_POST['pos'];
+} else {
+    $pos = 2;
+}
+
+$servername = "localhost";
+$username = "root";
+$password = "12345";
+$dbname = "db1";
+
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $conn->prepare("INSERT INTO shapes (id, shape, color, size, pos) VALUES (NULL, :shape, :color, :size, :pos);"); 
+
+    $stmt->bindParam(':shape', $shape, PDO::PARAM_INT);
+    $stmt->bindParam(':color', $color, PDO::PARAM_INT);
+    $stmt->bindParam(':size', $size, PDO::PARAM_INT);
+    $stmt->bindParam(':pos', $pos, PDO::PARAM_INT);
+
+    $stmt->execute();
+}
+catch(PDOException $e) {
+     echo "Error: " . $e->getMessage();
+}
+$conn = null;
 
 // $host = 'localhost';
 // $db   = 'db1';
@@ -28,32 +74,6 @@ phpinfo();
 
 // // // if($_SERVER['REQUEST_METHOD'] == "POST"){
 
-// $shape;
-// $color;
-// $size;
-// $pos;
-
-// // Get values
-// if (isset($_POST['shape'])) {
-//     $shape = $_POST['shape'];
-// } else {
-//     $shape = 0;
-// }
-// if (isset($_POST['color'])) {
-//     $color = $_POST['color'];
-// } else {
-//     $color = 0;
-// }
-// if (isset($_POST['size'])) {
-//     $size = $_POST['size'];
-// } else {
-//     $size = 0;
-// }
-// if (isset($_POST['pos'])) {
-//     $pos = $_POST['pos'];
-// } else {
-//     $pos = 0;
-// }
 
 // // Escape User Input to help prevent SQL Injection
 // $shape = mysql_real_escape_string($shape);
