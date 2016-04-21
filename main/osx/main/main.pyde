@@ -4,31 +4,126 @@
 import requests
 import random
 
-s = 50.0
-m = 150.0
-l = 250.0
-xl = 350.0
-
 shapes = []
 
-class my_shape(lst):
+class my_shape():
     def __init__(self, lst):
+        lst = [int(i) for i in lst]
+        lst = list(lst)
         self.shape_type = lst[0]
-        self.shape_col = lst[1]
-        self.shape_size = lst[2]
-        self.shape_pos = lst[3]
+        self.shape_col = self.get_color(lst[1])
+        self.shape_size = self.get_size(lst[2])
+        self.shape_pos = self.get_pos(lst[3])
         return
+
+    def get_string(self):
+        result = "{} {} {} {}".format(self.shape_type, self.shape_col, self.shape_size, self.shape_pos)
+        return result
     
-    def shape_draw():
+    def shape_draw(self):
+        fill(self.shape_col[0], self.shape_col[1], self.shape_col[2])
+
         if self.shape_type == 1:
-            rect(pos[0],pos[1],siz,siz)
+            rect(self.shape_pos[0], self.shape_pos[1],
+                 self.shape_size, self.shape_size)
         elif self.shape_type == 2:
-            ellipse(pos[0],pos[1],siz,siz)
+            ellipse(self.shape_pos[0], self.shape_pos[
+                    1], self.shape_size, self.shape_size)
         elif self.shape_type == 3:
-            triangle(pos[0],pos[1],pos[0]+siz,pos[1]+siz,pos[0]-siz,pos[1]-siz)
+            x1 = self.shape_pos[0]
+            y1 = self.shape_pos[1]
+            x2 = self.shape_pos[0] + (self.shape_size/2)
+            y2 = self.shape_pos[1] - (self.shape_size/1.5)
+            x3 = self.shape_pos[0] + self.shape_size
+            y3 = self.shape_pos[1]
+            triangle(x1, y1, x2, y2, x3, y3)
         elif self.shape_type == 4:
-            draw_star()
+            self.draw_star()
         return
+
+    def get_size(self, num):
+        siz = 0.0
+        if num == 1:
+            siz = 50.0
+        elif num == 2:
+            siz = 150.0
+        elif num == 3:
+            siz = 250.0
+        elif num == 4:
+            siz = 350.0
+        return siz
+
+    def get_pos(self, num):
+        x = 0.0
+        y = 0.0
+        if num == 1:
+            x = round(random.random() * 1000, 2)
+            y = round(random.random() * 1000, 2)
+        elif num == 2:
+            x = round(random.random() * 1000, 2)
+            y = float(random.randrange(0, 333))
+        elif num == 3:
+            x = round(random.random() * 1000, 2)
+            y = float(random.randrange(334, 666))
+        elif num == 4:
+            x = round(random.random() * 1000, 2)
+            y = float(random.randrange(667, 1000))
+        return (x, y)
+
+    def draw_star(self):
+        beginShape()
+        vertex(0, -50)
+        vertex(14, -20)
+        vertex(47, -15)
+        vertex(23, 7)
+        vertex(29, 40)
+        vertex(0, 25)
+        vertex(-29, 40)
+        vertex(-23, 7)
+        vertex(-47, -15)
+        vertex(-14, -20)
+        endShape(CLOSE)
+        return
+
+    def get_color(self, num):
+        if num == 1:
+            return (255, 0, 0)
+        if num == 2:
+            return (0, 255, 0)
+        if num == 3:
+            return (0, 0, 255)
+        if num == 4:
+            return (0, 0, 0)
+
+
+####################
+# Begin Processing #
+####################
+
+
+def setup():
+    noStroke()
+    background(255, 255, 255)
+    size(1000, 1000)
+    
+    data = get_data()
+    for row in data:
+        print(row)
+        shapes.append(my_shape(row))
+    return
+
+
+def draw():
+    data = get_data()
+
+    if len(data) > len(shapes):
+        for i in range(len(shapes), len(data)):
+            print(data[i])
+            shapes.append(my_shape(data[i]))
+    
+    for shape in shapes:
+        shape.shape_draw()
+    return
 
 
 def get_data():
@@ -42,89 +137,7 @@ def get_data():
         elif line.strip() == '</p>':
             cpy = False
         elif cpy:
-            lst.append(line[:4])
+            for item in line.split("<br>"):
+                if item[:4].isdigit():
+                    lst.append(item[:4])
     return lst
-
-
-def draw_star():
-    beginShape()
-    vertex(0, -50)
-    vertex(14, -20)
-    vertex(47, -15)
-    vertex(23, 7)
-    vertex(29, 40)
-    vertex(0, 25)
-    vertex(-29, 40)
-    vertex(-23, 7)
-    vertex(-47, -15)
-    vertex(-14, -20)
-    endShape(CLOSE)
-    return
-
-
-def get_size(num):
-    siz = 0.0
-    if num == 1:
-        siz = s
-    elif num == 2:
-        siz = m
-    elif num == 3:
-        siz = l
-    elif num == 4:
-        siz = xl
-    return siz
-
-
-def get_POS(num):
-    x=0.0
-    y=0.0
-
-    if num == 1:
-        x = round(random.random()*1000, 2)
-        y = round(random.random()*1000, 2) 
-    elif num == 2:
-        x = round(random.random()*1000, 2)
-        y = float(random.randrange(0,333))
-    elif num == 3:
-        x = round(random.random()*1000, 2)
-        y = float(random.randrange(334, 666))
-    elif num == 4:
-        x = round(random.random()*1000, 2)
-        y = float(random.randrange(667,1000))
-    return (x,y)
-
-
-def draw_shape(lst):
-    noStroke()
-    pos = get_POS(lst[3])
-    siz = get_size(lst[2])
-    if lst[1] == 1:
-        fill(255,0,0)
-    elif lst[1] == 2:
-        fill(0,255,0)
-    elif lst[1] == 3:
-        fill(0,0,255)
-    elif lst[1] == 4:
-        fill(0,0,0)
-    if lst[0] == 1:
-        rect(pos[0],pos[1],siz,siz)
-    elif lst[0] == 2:
-        ellipse(pos[0],pos[1],siz,siz)
-    elif lst[0] == 3:
-        triangle(pos[0],pos[1],pos[0]+siz,pos[1]+siz,pos[0]-siz,pos[1]-siz)
-    elif lst[0] == 4:
-        draw_star()
-    return
-
-
-def setup():
-    fill(126)
-    size(1000, 1000)
-    return
-
-
-def draw():
-    lst2 = get_data()
-    for i in range(len(lst2)):
-        draw_shape([int(j) for j in lst2[i]])
-    return
