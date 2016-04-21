@@ -24,3 +24,30 @@ $(function(){
         }); // end ajax
     });
 });
+
+$(function(){
+    $('#randButton').on('click', function(e){
+        e.preventDefault();
+
+        var shape = 0
+        var color = 0
+        var size  = 0
+        var pos   = 0
+
+        var s = {
+            "shape":shape,
+            "color":color,
+            "size":size,
+            "pos":pos
+        }
+
+        $.ajax({
+            url:'process.php',
+            type:'POST',
+            data:s,
+            success:function(data){
+                $("#banner").html(data);
+            }
+        }); // end ajax
+    });
+});
