@@ -1,29 +1,29 @@
 <?php
-$shape = 1;
-$color = 1;
-$size = 1;
-$pos = 1;
+$shape = rand(1, 4);
+$color = rand(1, 4);
+$size = rand(1, 4);
+$pos = rand(1, 4);
 
 // Get values
 if (isset($_POST['shape'])) {
-    $shape = $_POST['shape'];
-} else {
-    $shape = 2;
+    if(intval($_POST['shape']) > 0 && intval($_POST['shape']) < 5) {
+        $shape = $_POST['shape'];
+    }
 }
 if (isset($_POST['color'])) {
-    $color = $_POST['color'];
-} else {
-    $color = 2;
+    if(intval($_POST['color']) > 0 && intval($_POST['color']) < 5) {
+        $color = $_POST['color'];
+    }
 }
 if (isset($_POST['size'])) {
-    $size = $_POST['size'];
-} else {
-    $size = 2;
+    if(intval($_POST['size']) > 0 && intval($_POST['size']) < 5) {
+        $size = $_POST['size'];
+    }
 }
 if (isset($_POST['pos'])) {
-    $pos = $_POST['pos'];
-} else {
-    $pos = 2;
+    if(intval($_POST['pos']) > 0 && intval($_POST['pos']) < 5) {
+        $pos = $_POST['pos'];
+    }
 }
 
 $servername = "localhost";
@@ -41,7 +41,7 @@ try {
     $stmt->bindParam(':size', $size, PDO::PARAM_INT);
     $stmt->bindParam(':pos', $pos, PDO::PARAM_INT);
 
-    $stmt->execute();
+    $stmt->execute(); 
 }
 catch(PDOException $e) {
      echo "Error: " . $e->getMessage();
