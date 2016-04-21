@@ -71,17 +71,20 @@ class my_shape():
         return (x, y)
 
     def draw_star(self):
+        x = self.shape_pos[0]
+        y = self.shape_pos[1]
+        siz = self.shape_size / 100
         beginShape()
-        vertex(0, -50)
-        vertex(14, -20)
-        vertex(47, -15)
-        vertex(23, 7)
-        vertex(29, 40)
-        vertex(0, 25)
-        vertex(-29, 40)
-        vertex(-23, 7)
-        vertex(-47, -15)
-        vertex(-14, -20)
+        vertex(x + (47 * siz), y + (0 * siz))
+        vertex(x + (61 * siz), y + (30 * siz))
+        vertex(x + (94 * siz), y + (35 * siz))
+        vertex(x + (70 * siz), y + (57 * siz))
+        vertex(x + (76 * siz), y + (90 * siz))
+        vertex(x + (47 * siz), y + (75 * siz))
+        vertex(x + (18 * siz), y + (90 * siz))
+        vertex(x + (24 * siz), y + (57 * siz))
+        vertex(x + (0 * siz), y + (35 * siz))
+        vertex(x + (33 * siz), y + (30 * siz))
         endShape(CLOSE)
         return
 
